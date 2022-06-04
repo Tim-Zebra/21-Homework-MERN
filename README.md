@@ -31,7 +31,7 @@ A book search engine that has been refracted from a RESTful API to a GraphQL API
 * 
 * 
 ## Development Process:
-1. Reviewed RESTful API code
+1. Reviewed and tested RESTful API code
 2. Created list of actions needing to be refractored
 3. Refractored server and database
 4. Refractored routes
