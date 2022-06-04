@@ -1,13 +1,13 @@
-const { Tech, Matchup } = require('../models');
+const { Book, User } = require('../models');
 
 const resolvers = {
   Query: {
-    tech: async () => {
-      return Tech.find({});
+    user: async () => {
+      return User.find({});
     },
-    matchups: async (parent, { _id }) => {
+    savedBooks: async (parent, { _id }) => {
       const params = _id ? { _id } : {};
-      return Matchup.find(params);
+      return Book.find(params);
     },
   },
   Mutation: {
