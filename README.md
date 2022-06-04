@@ -1,7 +1,7 @@
 # Book Search Engine
 
 ## Description
-describe <br /> <br />
+A book search engine that has been refracted from a RESTful API to a GraphQL API built with Apollo Server <br /> <br />
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
  ## Table of Contents:
@@ -31,9 +31,11 @@ describe <br /> <br />
 * 
 * 
 ## Development Process:
-1. 
-2. 
-3. See commits for more details
+1. Reviewed RESTful API code
+2. Created list of actions needing to be refractored
+3. Refractored server and database
+4. Refractored routes
+5. See commits for more details
 
 ## Author:
 Created by Timothy Zalewski | Deployed on [GitHub](https://github.com/Tim-Zebra)
