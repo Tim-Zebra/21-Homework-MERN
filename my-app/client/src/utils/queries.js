@@ -18,3 +18,12 @@ export const QUERY_USER = gql`
     }
   }
 `;
+
+// API Query
+const GOOGLE_BOOKS_API = gql`
+  query googleBooks ($query: String!) {
+    person @rest(type: "Book", path: $query) {
+      name
+    }
+  }
+`;
