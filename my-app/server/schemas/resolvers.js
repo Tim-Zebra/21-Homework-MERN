@@ -11,17 +11,44 @@ const resolvers = {
     },
   },
   Mutation: {
-    createMatchup: async (parent, args) => {
-      const matchup = await Matchup.create(args);
-      return matchup;
+
+    createUser: async (parent, args) => {
+      const user = await User.create(args);
+      return user;
     },
-    createVote: async (parent, { _id, techNum }) => {
-      const vote = await Matchup.findOneAndUpdate(
-        { _id },
-        { $inc: { [`tech${techNum}_votes`]: 1 } },
+    saveBook: async (parent, { userId, book }) => {
+      return User.findOneAndUpdate(
+        { _id: userId },
+        {
+          $addToSet: { savedBooks: book },
+        },
+        {
+          new: true,
+        }
+      );
+    },
+    getSingleUser: async (parent, { email, password }) => {
+      const profile = await User.findOne({ email });
+
+      if (!profile) {
+        throw new AuthenticationError('No profile with this email found!');
+      }
+
+      const correctPw = await profile.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect password!');
+      }
+
+      const token = signToken(profile);
+      return { token, profile };
+    },
+    deleteBook: async (parent, { userId, book }) => {
+      return User.findOneAndUpdate(
+        { _id: userId },
+        { $pull: { savedBooks: book } },
         { new: true }
       );
-      return vote;
     },
   },
 };
