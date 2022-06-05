@@ -6,16 +6,16 @@ export const CREATE_USER = gql`
 `;
 
 // logs in user
-export const CREATE_USER = gql`
+export const LOGIN_USER = gql`
 
 `;
 
 // saves books
-export const CREATE_USER = gql`
+export const SAVE_BOOK = gql`
 
 `;
 
 // deletes a book
-export const CREATE_USER = gql`
+export const DELETE_BOOK = gql`
 
 `;
