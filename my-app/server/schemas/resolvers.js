@@ -7,10 +7,6 @@ const resolvers = {
     getSingleUser: async (parent, { username }) => {
       return User.findOne({ username }).populate('savedBooks');
     },
-    savedBooks: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Book.find(params);
-    },
   },
   Mutation: {
     createUser: async (parent, {username, email, password}) => {
