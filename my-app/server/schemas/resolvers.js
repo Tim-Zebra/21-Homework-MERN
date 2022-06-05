@@ -2,15 +2,11 @@ const { Book, User } = require('../models');
 
 const resolvers = {
   Query: {
-    // May only need user or getSingleUser
-    user: async () => {
-      return User.find({});
+    getSingleUser: async (parent, { username }) => {
+      return User.findOne({ username }).populate('savedBooks');
     },
-    getSingleUser: async (parent, { userId }) => {
-      return Profile.findOne({ _id: userId });
-    },
-    savedBooks: async (parent, { _id }) => {
-      const params = _id ? { _id } : {};
+    savedBooks: async (parent, { username }) => {
+      const params = username ? { username } : {};
       return Book.find(params);
     },
 
@@ -25,12 +21,8 @@ const resolvers = {
     saveBook: async (parent, { userId, book }) => {
       return User.findOneAndUpdate(
         { _id: userId },
-        {
-          $addToSet: { savedBooks: book },
-        },
-        {
-          new: true,
-        }
+        { $addToSet: { savedBooks: book } },
+        { new: true }
       );
     },
     deleteBook: async (parent, { userId, book }) => {
