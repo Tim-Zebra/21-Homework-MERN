@@ -5,6 +5,7 @@ export const QUERY_USER = gql`
     getSingleUser(username: $username) {
       _id
       username
+      email
       savedBooks {
         authors
         title
