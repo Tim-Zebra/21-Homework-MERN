@@ -11,7 +11,6 @@ const resolvers = {
     },
   },
   Mutation: {
-
     createUser: async (parent, args) => {
       const user = await User.create(args);
       return user;
@@ -27,7 +26,17 @@ const resolvers = {
         }
       );
     },
-    getSingleUser: async (parent, { email, password }) => {
+    getSingleUser: async (parent, { userId }) => {
+      return Profile.findOne({ _id: userId });
+    },
+    deleteBook: async (parent, { userId, book }) => {
+      return User.findOneAndUpdate(
+        { _id: userId },
+        { $pull: { savedBooks: book } },
+        { new: true }
+      );
+    },
+    login: async (parent, { email, password }) => {
       const profile = await User.findOne({ email });
 
       if (!profile) {
@@ -42,13 +51,6 @@ const resolvers = {
 
       const token = signToken(profile);
       return { token, profile };
-    },
-    deleteBook: async (parent, { userId, book }) => {
-      return User.findOneAndUpdate(
-        { _id: userId },
-        { $pull: { savedBooks: book } },
-        { new: true }
-      );
     },
   },
 };
