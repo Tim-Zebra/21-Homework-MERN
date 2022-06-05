@@ -2,13 +2,18 @@ const { Book, User } = require('../models');
 
 const resolvers = {
   Query: {
+    // May only need user or getSingleUser
     user: async () => {
       return User.find({});
+    },
+    getSingleUser: async (parent, { userId }) => {
+      return Profile.findOne({ _id: userId });
     },
     savedBooks: async (parent, { _id }) => {
       const params = _id ? { _id } : {};
       return Book.find(params);
     },
+
   },
   Mutation: {
     createUser: async (parent, args) => {
@@ -25,9 +30,6 @@ const resolvers = {
           new: true,
         }
       );
-    },
-    getSingleUser: async (parent, { userId }) => {
-      return Profile.findOne({ _id: userId });
     },
     deleteBook: async (parent, { userId, book }) => {
       return User.findOneAndUpdate(
