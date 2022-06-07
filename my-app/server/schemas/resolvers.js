@@ -4,11 +4,14 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    users: async (parent, { username }) => {
-      return User.find();
-    },
-    getSingleUser: async (parent, { username }) => {
-      return User.findOne({ username }).populate('savedBooks');
+    // Finds user based off the jwt context
+    me: async (parent, args, context) => {
+      if(context.user) {
+        const userData = User.findOne({ _id: context.user._id });
+
+        return userData;
+      }
+      throw new AuthenticationError('You are not logged in!');
     },
   },
   Mutation: {

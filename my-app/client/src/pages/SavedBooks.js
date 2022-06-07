@@ -2,7 +2,7 @@ import React from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
-import { QUERY_USER } from '../utils/queries';
+import { QUERY_ME } from '../utils/queries';
 import { DELETE_BOOK } from '../utils/mutations';
 
 import Auth from '../utils/auth';
@@ -10,7 +10,7 @@ import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
   // Hooks user data
-  const { loading, data } = useQuery(QUERY_USER);
+  const { loading, data } = useQuery(QUERY_ME);
   // Sets delete mutation
   const [ deleteBook, { error } ] = useMutation(DELETE_BOOK);
 
