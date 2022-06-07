@@ -14,18 +14,16 @@ const SavedBooks = () => {
 
   // Create a hook that loads user data after query as completed
   const[ userData, setUserData ] = useState(!loading ? data.me : null);
+
   // Sets delete mutation
   const [ deleteBook, { error } ] = useMutation(DELETE_BOOK);
 
+  if(!userData) {
+    return null;
+  }
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
-
     try {
       const { data } = await deleteBook({
         variables: { bookId },
@@ -52,12 +50,12 @@ const SavedBooks = () => {
       </Jumbotron>
       <Container>
         <h2>
-          {userData.savedBooks?.length
+          {userData.savedBooks.length
             ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
             : 'You have no saved books!'}
         </h2>
         <CardColumns>
-          {userData.savedBooks?.map((book) => {
+          {userData.savedBooks.map((book) => {
             return (
               <Card key={book.bookId} border='dark'>
                 {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
