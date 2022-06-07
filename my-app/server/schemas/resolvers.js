@@ -7,9 +7,7 @@ const resolvers = {
     // Finds user based off the jwt context
     me: async (parent, args, context) => {
       if(context.user) {
-        const userData = User.findOne({ _id: context.user._id });
-
-        return userData;
+        return await User.findOne({ _id: context.user._id });
       }
       throw new AuthenticationError('You are not logged in!');
     },
@@ -38,18 +36,23 @@ const resolvers = {
       return { token, user };
     },
     saveBook: async (parent, args, context) => {
-      return User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $addToSet: { savedBooks: args } },
-        { new: true }
-      );
+      if(context.user) {
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedBooks: args } },
+          { new: true, runValidators: true }
+        );
+      }
+      throw new AuthenticationError('Could NOT add book!');
     },
     deleteBook: async (parent, { bookId }, context) => {
-      return User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $pull: { savedBooks: {bookId: bookId } } },
-        { new: true }
-      );
+      if(context.user) {
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedBooks: { bookId } } },
+          { new: true },
+        );
+      }
     },
   },
 };
