@@ -5,7 +5,7 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
   Query: {
     users: async (parent, { username }) => {
-      return User.findAll({});
+      return User.find();
     },
     getSingleUser: async (parent, { username }) => {
       return User.findOne({ username }).populate('savedBooks');

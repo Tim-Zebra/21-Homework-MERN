@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { Form, Button, Alert } from 'react-bootstrap';
 
 import { CREATE_USER } from '../utils/mutations';
-import { QUERY_USER, QUERY_USERS } from '../utils/mutations';
+import { QUERY_USERS, QUERY_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
@@ -20,22 +20,15 @@ const SignupForm = () => {
   const [addUser, { error }] = useMutation(CREATE_USER, {
     update(cache, { data: { addUser } }) {
       try {
-        const { user } = cache.readQuery({ query: QUERY_USER });
+        const { users } = cache.readQuery({ query: QUERY_USERS });
 
         cache.writeQuery({
-          query: QUERY_USER,
-          data: { user: [addUser, ...thoughts] },
+          query: QUERY_USERS,
+          data: { users: [addUser, ...users] },
         });
       } catch (e) {
         console.error(e);
       }
-
-      // update me object's cache
-      const { me } = cache.readQuery({ query: QUERY_ME });
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
-      });
     },
   });
 
