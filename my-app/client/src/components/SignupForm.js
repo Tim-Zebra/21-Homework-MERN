@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
 import { Form, Button, Alert } from 'react-bootstrap';
 
-import { createUser } from '../utils/API';
+import { CREATE_USER } from '../utils/mutations';
+import { QUERY_USER, QUERY_USERS } from '../utils/mutations';
+
 import Auth from '../utils/auth';
 
 const SignupForm = () => {
@@ -11,6 +15,29 @@ const SignupForm = () => {
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
+
+  // Creates variable to handle mutation
+  const [addUser, { error }] = useMutation(CREATE_USER, {
+    update(cache, { data: { addUser } }) {
+      try {
+        const { user } = cache.readQuery({ query: QUERY_USER });
+
+        cache.writeQuery({
+          query: QUERY_USER,
+          data: { user: [addUser, ...thoughts] },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+
+      // update me object's cache
+      const { me } = cache.readQuery({ query: QUERY_ME });
+      cache.writeQuery({
+        query: QUERY_ME,
+        data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
+      });
+    },
+  });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -28,7 +55,7 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await createUser(userFormData);
+      const { data } = await createUser(userFormData);
 
       if (!response.ok) {
         throw new Error('something went wrong!');
