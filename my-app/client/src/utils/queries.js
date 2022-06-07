@@ -21,19 +21,8 @@ export const QUERY_USER = gql`
 
 export const QUERY_USERS = gql`
   query users {
-    getSingleUser(username: $username) {
-      _id
+    users {
       username
-      email
-      savedBooks {
-        authors
-        title
-        description
-        bookId
-        image
-        link
-        title
-      }
     }
   }
 `;

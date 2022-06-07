@@ -17,14 +17,14 @@ const SignupForm = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   // Creates variable to handle mutation
-  const [addUser, { error }] = useMutation(CREATE_USER, {
-    update(cache, { data: { addUser } }) {
+  const [createUser, { error }] = useMutation(CREATE_USER, {
+    update(cache, { data: { createUser } }) {
       try {
         const { users } = cache.readQuery({ query: QUERY_USERS });
 
         cache.writeQuery({
           query: QUERY_USERS,
-          data: { users: [addUser, ...users] },
+          data: { users: [createUser, ...users] },
         });
       } catch (e) {
         console.error(e);
@@ -48,15 +48,15 @@ const SignupForm = () => {
     }
 
     try {
-      const { data } = await createUser(userFormData);
+      const { data } = await createUser({
+        variables: {
+          username,
+          email,
+          password,
+        },
+      });
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token);
+      Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
       setShowAlert(true);
