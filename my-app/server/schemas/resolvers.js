@@ -35,17 +35,15 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    saveBook: async (parent, args, context) => {
-      console.log('This happened');
-      console.log('SAVED BOOK ARGUMENTS', args.input);
-      if(context.user) {
-        return await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { savedBooks: args } },
-          { new: true, runValidators: true }
-        );
+    saveBook: async (parent, { input }, context) => {
+      if (context.user) {
+          return await User.findOneAndUpdate(
+              { _id: context.user._id },
+              { $addToSet: { savedBooks: input } },
+              { new: true },
+          );
       }
-      throw new AuthenticationError('Could NOT add book!');
+      throw new AuthenticationError('You need to be logged in!');
     },
     removeBook: async (parent, { bookId }, context) => {
       if(context.user) {
