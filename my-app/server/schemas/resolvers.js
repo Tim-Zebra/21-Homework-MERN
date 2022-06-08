@@ -7,8 +7,7 @@ const resolvers = {
     // Finds user based off the jwt context
     me: async (parent, args, context) => {
       if(context.user) {
-        const userData = await User.findOne({ _id: context.user._id }).select('-__v -password');
-        return userData;
+        return User.findOne({ _id: context.user._id }).populate('savedBooks');
       }
       throw new AuthenticationError('You are not logged in!');
     },

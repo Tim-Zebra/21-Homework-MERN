@@ -16,16 +16,16 @@ const SavedBooks = () => {
   const [userData, setUserData] = useState(loading ? null : data.me);
 
   // Sets delete mutation
-  const [ deleteBook, { error } ] = useMutation(DELETE_BOOK);
+  const [ removeBook, { error } ] = useMutation(DELETE_BOOK);
 
   if(!userData) {
     return null;
   }
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
-  const handleDeleteBook = async (bookId) => {
+  const handleRemoveBook = async (bookId) => {
     try {
-      const { data } = await deleteBook({
+      const { data } = await removeBook({
         variables: { bookId },
       });
 
@@ -70,7 +70,7 @@ const SavedBooks = () => {
                   <Card.Title>{book.title}</Card.Title>
                   <p className='small'>Authors: {book.authors}</p>
                   <Card.Text>{book.description}</Card.Text>
-                  <Button className='btn-block btn-danger' onClick={() => handleDeleteBook(book.bookId)}>
+                  <Button className='btn-block btn-danger' onClick={() => handleRemoveBook(book.bookId)}>
                     Delete this Book!
                   </Button>
                 </Card.Body>
