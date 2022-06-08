@@ -14,8 +14,8 @@ A book search engine that has been refracted from a RESTful API to a GraphQL API
   **[Author](#author)** <br />
 
 ## How to Use:
-* 
-* 
+* Enter your search into the search bar to find books and their related information <br />
+* Login or create and account to save or remove books <br />
 
 ## Application Demos:
 <h2 align="center">Title</h2>
@@ -28,14 +28,16 @@ A book search engine that has been refracted from a RESTful API to a GraphQL API
 
 
 ## References:
-* 
-* 
+* UTA Bootcamp Topic #21 MERN
+
 ## Development Process:
-1. Reviewed and tested RESTful API code
-2. Created list of actions needing to be refractored
-3. Refractored server and database
-4. Refractored routes
-5. See commits for more details
+1. Reviewed and tested RESTful API code <br />
+2. Created list of actions needing to be refractored <br />
+3. Refractored server and database <br />
+4. Refractored routes <br />
+5. Debugged <br />
+6. Refractored middleware <br />
+7. See commits for more details
 
 ## Author:
 Created by Timothy Zalewski | Deployed on [GitHub](https://github.com/Tim-Zebra)

@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
-const config = require('../config/secrets')
+require('dotenv').config();
 
 // set token secret and expiration date
-const secret = config.jwtSecretKey;
+const secret = process.env.JWT_SECRET_KEY;
 const expiration = '2h';
 
 module.exports = {
@@ -22,7 +22,6 @@ module.exports = {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
     } catch {
-      console.log('This happened', secret);
       console.log('Invalid token');
     }
 
