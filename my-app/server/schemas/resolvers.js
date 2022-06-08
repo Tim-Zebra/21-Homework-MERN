@@ -36,14 +36,14 @@ const resolvers = {
       return { token, user };
     },
     saveBook: async (parent, { input }, context) => {
-      if (context.user) {
-          return await User.findOneAndUpdate(
-              { _id: context.user._id },
-              { $addToSet: { savedBooks: input } },
-              { new: true },
-          );
+      if(context.user) {
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedBooks: input } },
+          { new: true, runValidators: true }
+        );
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError('Could NOT add book!');
     },
     removeBook: async (parent, { bookId }, context) => {
       if(context.user) {
