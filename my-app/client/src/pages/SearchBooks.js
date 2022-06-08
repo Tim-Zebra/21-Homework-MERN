@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useMutation } from '@apollo/client';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
 import { searchGoogleBooks } from '../utils/API';
 
+import { useMutation } from '@apollo/client';
 import { SAVE_BOOK } from '../utils/mutations';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
@@ -63,11 +63,19 @@ const SearchBooks = () => {
     // find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
 
+    // confirms user auth
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
     try {
-      console.log('try happened');
+      console.log('try happened', bookToSave);
       const { data } = await saveBook({
         variables: {input: { ...bookToSave } }
       });
+      console.log('try happened after data');
 
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
