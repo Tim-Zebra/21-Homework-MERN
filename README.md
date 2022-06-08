@@ -27,7 +27,7 @@ A book search engine that has been refracted from a RESTful API to a GraphQL API
 <p align="center"><font size="4"><a href="https://drive.google.com/file/d/1377GXpEymlauFKofHzWeFhWZrjOm987q/view">Video Demo</a></font></p>
 
 ## Link to Deployed Page:
-
+https://timzebrabooksearchengine.herokuapp.com/
 
 ## References:
 * UTA Bootcamp Topic #21 MERN
