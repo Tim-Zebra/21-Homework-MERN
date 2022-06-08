@@ -3,14 +3,10 @@ const express = require('express');
 const path = require('path');
 const { ApolloServer } = require('apollo-server-express');
 const { authMiddleware } = require('./utils/auth');
-// const { RestLink } = require('apollo-link-rest');
 
 // Query imports
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
-
-// Allows fetching of API (Google Book Search)
-// const restLink = new RestLink({ uri: "https://www.googleapis.com/books/v1/volumes?q=" });
 
 // Server/App/Port variables
 const PORT = process.env.PORT || 3001;
@@ -20,10 +16,6 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware,
 });
-
-// client.query({ googleBooks }).then(response => {
-//   console.log(response);
-// });
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
