@@ -18,11 +18,13 @@ A book search engine that has been refracted from a RESTful API to a GraphQL API
 * Login or create and account to save or remove books <br />
 
 ## Application Demos:
-<h2 align="center">Title</h2>
-<p align="center"><img src="./demos/.png" alt="image demo" width="800" height="auto"/></p> <br /><br />
-<h2 align="center">Second Title</h2>
-<p align="center"><img src="./demos/.gif" alt="gif demo" width="800" height="auto"/></p> <br />
-<p align="center"><font size="4"><a href="">Video Demo</a></font></p>
+<h2 align="center">Book Search Engine!</h2>
+<p align="center"><img src="./demos/landingPage.png" alt="image demo" width="800" height="auto"/></p> <br /><br />
+<h2 align="center">Removing saved books</h2>
+<p align="center"><img src="./demos/demo_removeSaved.gif" alt="gif demo" width="800" height="auto"/></p> <br />
+<h2 align="center">Refractored Code</h2>
+<p align="center"><img src="./demos/demo_refractoredCode.gif" alt="gif demo" width="800" height="auto"/></p> <br />
+<p align="center"><font size="4"><a href="https://drive.google.com/file/d/1377GXpEymlauFKofHzWeFhWZrjOm987q/view">Video Demo</a></font></p>
 
 ## Link to Deployed Page:
 
