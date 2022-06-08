@@ -36,6 +36,7 @@ const resolvers = {
       return { token, user };
     },
     saveBook: async (parent, args, context) => {
+      console.log('SAVED BOOK ARGUMENTS', args);
       if(context.user) {
         return await User.findOneAndUpdate(
           { _id: context.user._id },
