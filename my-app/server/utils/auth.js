@@ -15,9 +15,12 @@ module.exports = {
       token = token.split(' ').pop().trim();
     }
 
+    // declines if invalid token
     if (!token) {
       return req;
     }
+
+    // Verifies token
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
