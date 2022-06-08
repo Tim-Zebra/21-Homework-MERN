@@ -2,6 +2,7 @@
 const express = require('express');
 const path = require('path');
 const { ApolloServer } = require('apollo-server-express');
+const { authMiddleware } = require('./utils/auth');
 // const { RestLink } = require('apollo-link-rest');
 
 // Query imports
@@ -17,7 +18,7 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // link: restLink,
+  context: authMiddleware,
 });
 
 // client.query({ googleBooks }).then(response => {

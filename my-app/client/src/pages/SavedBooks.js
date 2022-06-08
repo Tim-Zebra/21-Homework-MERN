@@ -13,7 +13,7 @@ const SavedBooks = () => {
   const { loading, data } = useQuery(QUERY_ME);
 
   // Create a hook that loads user data after query as completed
-  const[ userData, setUserData ] = useState(!loading ? data.me : null);
+  const [userData, setUserData] = useState(loading ? null : data.me);
 
   // Sets delete mutation
   const [ deleteBook, { error } ] = useMutation(DELETE_BOOK);
@@ -29,6 +29,13 @@ const SavedBooks = () => {
         variables: { bookId },
       });
 
+      // update state of books:
+      setUserData(()=>{
+        return{
+          ...userData,
+          savedBooks: data.data.removeBook.savedBooks
+        }
+      })
       // upon success, remove book's id from localStorage
       removeBookId(bookId);
     } catch (err) {
